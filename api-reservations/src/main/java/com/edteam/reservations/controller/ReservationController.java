@@ -5,8 +5,6 @@ import com.edteam.reservations.dto.ReservationDTO;
 import com.edteam.reservations.enums.APIError;
 import com.edteam.reservations.exception.EdteamException;
 import com.edteam.reservations.service.ReservationService;
-import io.github.resilience4j.ratelimiter.RequestNotPermitted;
-import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.slf4j.Logger;
@@ -47,7 +45,6 @@ public class ReservationController implements ReservationResource {
     }
 
     @PostMapping
-    @RateLimiter(name = "post-reservation", fallbackMethod = "fallbackPost")
     public ResponseEntity<ReservationDTO> save(@RequestBody @Valid ReservationDTO reservation) {
         LOGGER.info("Saving new reservation");
         ReservationDTO response = service.save(reservation);
@@ -68,11 +65,5 @@ public class ReservationController implements ReservationResource {
         LOGGER.info("Deleting a reservation with {}", id);
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private ResponseEntity<ReservationDTO> fallbackPost(ReservationDTO reservation, RequestNotPermitted ex) {
-        LOGGER.debug("calling to fallbackPost");
-
-        throw new EdteamException(APIError.EXCEED_NUMBER_OPERATIONS);
     }
 }
