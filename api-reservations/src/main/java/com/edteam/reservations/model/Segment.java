@@ -1,5 +1,7 @@
 package com.edteam.reservations.model;
 
+import java.util.Objects;
+
 public class Segment {
 
     private Long id;
@@ -59,5 +61,18 @@ public class Segment {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Segment segment = (Segment) o;
+        return Objects.equals(id, segment.id) && Objects.equals(origin, segment.origin) && Objects.equals(destination, segment.destination) && Objects.equals(departure, segment.departure) && Objects.equals(arrival, segment.arrival) && Objects.equals(carrier, segment.carrier);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, origin, destination, departure, arrival, carrier);
     }
 }
