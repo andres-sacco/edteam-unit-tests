@@ -10,13 +10,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReservationRepositoryTest {
 
     @Test
-    void my_first_test() {
+    void getReservation_should_return_the_information() {
 
+        // Given
         ReservationRepository repository = new ReservationRepository();
 
+        // When
         Optional<Reservation> result = repository.getReservationById(1L);
 
+        // Then
         assertEquals(1L, result.get().getId());
+    }
+
+    @Test
+    void getReservation_should_not_return_the_information() {
+
+        // Given
+        ReservationRepository repository = new ReservationRepository();
+
+        // When
+        Optional<Reservation> result = repository.getReservationById(6L);
+
+        // Then
+        assertTrue(result.isEmpty());
     }
 
 }
