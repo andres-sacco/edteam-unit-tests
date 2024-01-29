@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Tags(@Tag("repository"))
@@ -38,6 +40,30 @@ class ReservationRepositoryTest {
     static void destroy_all_test() {
         LOGGER.info("Destroy the context on all test");
     }
+
+    @Tag("success-case")
+    @DisplayName("should return the information of all the reservations")
+    @Test
+    void getReservations_should_return_the_information() {
+
+        // Given
+        ReservationRepository repository = new ReservationRepository();
+        repository.save(getReservation(null, "AEP", "MIA"));
+
+        // When
+        List<Reservation> result = repository.getReservations();
+
+        // Then
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertThat(result, hasSize(2)),
+                () -> assertThat(getReservation(2L, "AEP", "MIA"), in(result)),
+                () -> assertThat(result.get(0), hasProperty("id")),
+                () -> assertThat(result.get(0).getPassengers().get(0).getFirstName(), stringContainsInOrder("A","s")),
+                () -> assertThat(result.get(0).getPassengers().get(0).getFirstName(), matchesRegex("[a-zA-Z]+"))
+        );
+    }
+
 
     @Tag("success-case")
     @DisplayName("should return the information of the reservation")
