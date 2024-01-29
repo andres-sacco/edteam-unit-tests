@@ -2,6 +2,8 @@ package com.edteam.reservations.repository;
 
 import com.edteam.reservations.model.*;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -12,17 +14,48 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ReservationRepositoryTest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReservationRepositoryTest.class);
+
+    ReservationRepository repository;
+
+    @BeforeEach
+    void initialize_each_test() {
+        LOGGER.info("Initialize the context on each test");
+        repository = new ReservationRepository();
+
+        if(repository.getReservations().size() != 1) {
+            fail();
+        }
+    }
+
+    @AfterEach
+    void destroy_each_test() {
+        LOGGER.info("Destroy the context on each test");
+    }
+
+    @BeforeAll
+    static void initialize_all_test() {
+        LOGGER.info("Initialize the context on all test");
+    }
+
+    @AfterAll
+    static void destroy_all_test() {
+        LOGGER.info("Destroy the context on all test");
+    }
+
+
     @Test
     void getReservation_should_return_the_information() {
 
         // Given
-        ReservationRepository repository = new ReservationRepository();
+        // ReservationRepository repository = new ReservationRepository();
 
         // When
         Optional<Reservation> result = repository.getReservationById(1L);
 
         // Then
-        assertAll(() -> assertNotNull(result),
+        assertAll(
+                () -> assertNotNull(result),
                 () -> assertTrue(result.isPresent()),
                 () -> assertEquals(getReservation(1L, "EZE", "MIA"), result.get())
         );
@@ -32,7 +65,7 @@ class ReservationRepositoryTest {
     void getReservation_should_not_return_the_information() {
 
         // Given
-        ReservationRepository repository = new ReservationRepository();
+        // ReservationRepository repository = new ReservationRepository();
 
         // When
         Optional<Reservation> result = repository.getReservationById(6L);
