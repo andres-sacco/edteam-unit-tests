@@ -46,10 +46,13 @@ public class Price {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Price price = (Price) o;
-        return Objects.equals(id, price.id) && Objects.equals(totalPrice, price.totalPrice) && Objects.equals(totalTax, price.totalTax) && Objects.equals(basePrice, price.basePrice);
+        return Objects.equals(id, price.id) && Objects.equals(totalPrice, price.totalPrice)
+                && Objects.equals(totalTax, price.totalTax) && Objects.equals(basePrice, price.basePrice);
     }
 
     @Override

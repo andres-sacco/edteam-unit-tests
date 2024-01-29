@@ -36,10 +36,13 @@ public class Reservation {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Reservation that = (Reservation) o;
-        return Objects.equals(id, that.id) && Objects.equals(passengers, that.passengers) && Objects.equals(itinerary, that.itinerary);
+        return Objects.equals(id, that.id) && Objects.equals(passengers, that.passengers)
+                && Objects.equals(itinerary, that.itinerary);
     }
 
     @Override

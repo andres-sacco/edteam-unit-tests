@@ -12,20 +12,16 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tags(@Tag("repository"))
+//@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+@DisplayName("Check the functionality of the repository")
 class ReservationRepositoryTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ReservationRepositoryTest.class);
 
-    ReservationRepository repository;
-
     @BeforeEach
     void initialize_each_test() {
         LOGGER.info("Initialize the context on each test");
-        repository = new ReservationRepository();
-
-        if(repository.getReservations().size() != 1) {
-            fail();
-        }
     }
 
     @AfterEach
@@ -43,40 +39,36 @@ class ReservationRepositoryTest {
         LOGGER.info("Destroy the context on all test");
     }
 
-
+    @Tag("success-case")
+    @DisplayName("should return the information of the reservation")
     @Test
     void getReservation_should_return_the_information() {
 
         // Given
-        // ReservationRepository repository = new ReservationRepository();
+        ReservationRepository repository = new ReservationRepository();
 
         // When
         Optional<Reservation> result = repository.getReservationById(1L);
 
         // Then
-        assertAll(
-                () -> assertNotNull(result),
-                () -> assertTrue(result.isPresent()),
-                () -> assertEquals(getReservation(1L, "EZE", "MIA"), result.get())
-        );
+        assertAll(() -> assertNotNull(result), () -> assertTrue(result.isPresent()),
+                () -> assertEquals(getReservation(1L, "EZE", "MIA"), result.get()));
     }
 
+    @Tag("error-case")
+    @DisplayName("should not return the information of the reservation")
     @Test
     void getReservation_should_not_return_the_information() {
 
         // Given
-        // ReservationRepository repository = new ReservationRepository();
+        ReservationRepository repository = new ReservationRepository();
 
         // When
         Optional<Reservation> result = repository.getReservationById(6L);
 
         // Then
-        assertAll(
-                () -> assertNotNull(result),
-                () -> assertTrue(result.isEmpty())
-        );
+        assertAll(() -> assertNotNull(result), () -> assertTrue(result.isEmpty()));
     }
-
 
     private Reservation getReservation(Long id, String origin, String destination) {
         Passenger passenger = new Passenger();

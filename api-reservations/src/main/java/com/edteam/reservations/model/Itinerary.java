@@ -35,10 +35,13 @@ public class Itinerary {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Itinerary itinerary = (Itinerary) o;
-        return Objects.equals(id, itinerary.id) && Objects.equals(segment, itinerary.segment) && Objects.equals(price, itinerary.price);
+        return Objects.equals(id, itinerary.id) && Objects.equals(segment, itinerary.segment)
+                && Objects.equals(price, itinerary.price);
     }
 
     @Override
