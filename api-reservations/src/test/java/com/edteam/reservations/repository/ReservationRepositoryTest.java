@@ -19,6 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Tags(@Tag("repository"))
 //@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("Check the functionality of the repository")
@@ -46,6 +47,7 @@ class ReservationRepositoryTest {
         LOGGER.info("Destroy the context on all test");
     }
 
+    @Order(2)
     @Tag("success-case")
     @DisplayName("should return the information of all the reservations using external files")
     @ParameterizedTest
@@ -66,6 +68,7 @@ class ReservationRepositoryTest {
         );
     }
 
+    @Order(2)
     @Tag("success-case")
     @DisplayName("should return the information of all the reservations using CSV")
     @ParameterizedTest
@@ -86,6 +89,7 @@ class ReservationRepositoryTest {
         );
     }
 
+    @Order(2)
     @Tag("success-case")
     @DisplayName("should return the information of all the reservations using parameters")
     @ParameterizedTest
@@ -107,7 +111,7 @@ class ReservationRepositoryTest {
     }
 
 
-    @Disabled
+    @Order(1)
     @Tag("success-case")
     @DisplayName("should return the information of all the reservations")
     @Test
@@ -150,6 +154,7 @@ class ReservationRepositoryTest {
                 () -> assertEquals(getReservation(1L, "EZE", "MIA"), result.get()));
     }
 
+    @Disabled
     @Tag("error-case")
     @DisplayName("should not return the information of the reservation by timeout problem")
     @Test
@@ -169,6 +174,7 @@ class ReservationRepositoryTest {
                 () -> assertEquals(getReservation(1L, "EZE", "MIA"), result.get()));
     }
 
+    @Order(1)
     @Tag("error-case")
     @DisplayName("should not return the information of the reservation")
     @Test
