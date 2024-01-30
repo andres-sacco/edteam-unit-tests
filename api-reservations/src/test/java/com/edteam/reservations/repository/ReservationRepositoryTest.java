@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -134,7 +135,26 @@ class ReservationRepositoryTest {
     @Tag("success-case")
     @DisplayName("should return the information of the reservation")
     @Test
-    void getReservation_should_return_the_information() {
+    void getReservation_should_return_the_information() throws InterruptedException {
+
+        // Given
+        ReservationRepository repository = new ReservationRepository();
+
+        // When
+        Optional<Reservation> result = repository.getReservationById(1L);
+
+        // Then
+        assertAll(
+                () -> assertNotNull(result),
+                () -> assertTrue(result.isPresent()),
+                () -> assertEquals(getReservation(1L, "EZE", "MIA"), result.get()));
+    }
+
+    @Tag("error-case")
+    @DisplayName("should not return the information of the reservation by timeout problem")
+    @Test
+    @Timeout(value = 1L, unit = TimeUnit.MILLISECONDS)
+    void getReservation_should_not_return_the_information_by_timeout() throws InterruptedException {
 
         // Given
         ReservationRepository repository = new ReservationRepository();
