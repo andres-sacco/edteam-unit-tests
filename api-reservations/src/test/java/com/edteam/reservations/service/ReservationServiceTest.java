@@ -6,9 +6,7 @@ import com.edteam.reservations.exception.EdteamException;
 import com.edteam.reservations.repository.ReservationRepository;
 import org.junit.jupiter.api.*;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
+import static com.edteam.reservations.util.ReservationUtil.getReservationDTO;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Tags(@Tag("service"))
@@ -49,39 +47,6 @@ class ReservationServiceTest {
         ReservationDTO result = service.getReservationById(1L);
 
         // Then
-        assertAll(() -> assertNotNull(result), () -> assertEquals(getReservation(1L, "EZE", "MIA"), result));
+        assertAll(() -> assertNotNull(result), () -> assertEquals(getReservationDTO(1L, "EZE", "MIA"), result));
     }
-
-    private ReservationDTO getReservation(Long id, String origin, String destination) {
-        PassengerDTO passenger = new PassengerDTO();
-        passenger.setFirstName("Andres");
-        passenger.setLastName("Sacco");
-        passenger.setDocumentType("DNI");
-        passenger.setDocumentNumber("12345678");
-        passenger.setBirthday(LocalDate.of(1985, 1, 1));
-
-        PriceDTO price = new PriceDTO();
-        price.setBasePrice(BigDecimal.ONE);
-        price.setTotalTax(BigDecimal.ZERO);
-        price.setTotalPrice(BigDecimal.ONE);
-
-        SegmentDTO segment = new SegmentDTO();
-        segment.setArrival("2025-01-01");
-        segment.setDeparture("2024-12-31");
-        segment.setOrigin(origin);
-        segment.setDestination(destination);
-        segment.setCarrier("AA");
-
-        ItineraryDTO itinerary = new ItineraryDTO();
-        itinerary.setPrice(price);
-        itinerary.setSegment(List.of(segment));
-
-        ReservationDTO reservation = new ReservationDTO();
-        reservation.setId(id);
-        reservation.setPassengers(List.of(passenger));
-        reservation.setItinerary(itinerary);
-
-        return reservation;
-    }
-
 }
