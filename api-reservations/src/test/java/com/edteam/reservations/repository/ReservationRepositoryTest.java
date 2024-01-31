@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Tags(@Tag("repository"))
-//@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
+// @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @DisplayName("Check the functionality of the repository")
 class ReservationRepositoryTest {
 
@@ -61,18 +61,16 @@ class ReservationRepositoryTest {
         Reservation reservation = repository.save(getReservation(null, origin, destination));
 
         // Then
-        assertAll(
-                () -> assertNotNull(reservation),
+        assertAll(() -> assertNotNull(reservation),
                 () -> assertEquals(origin, reservation.getItinerary().getSegment().get(0).getOrigin()),
-                () -> assertEquals(destination, reservation.getItinerary().getSegment().get(0).getDestination())
-        );
+                () -> assertEquals(destination, reservation.getItinerary().getSegment().get(0).getDestination()));
     }
 
     @Order(2)
     @Tag("success-case")
     @DisplayName("should return the information of all the reservations using CSV")
     @ParameterizedTest
-    @CsvSource({"MIA,AEP", "BUE,SCL", "BUE,MIA"})
+    @CsvSource({ "MIA,AEP", "BUE,SCL", "BUE,MIA" })
     void save_should_return_the_information_using_csv(String origin, String destination) {
 
         // Given
@@ -82,18 +80,16 @@ class ReservationRepositoryTest {
         Reservation reservation = repository.save(getReservation(null, origin, destination));
 
         // Then
-        assertAll(
-                () -> assertNotNull(reservation),
+        assertAll(() -> assertNotNull(reservation),
                 () -> assertEquals(origin, reservation.getItinerary().getSegment().get(0).getOrigin()),
-                () -> assertEquals(destination, reservation.getItinerary().getSegment().get(0).getDestination())
-        );
+                () -> assertEquals(destination, reservation.getItinerary().getSegment().get(0).getDestination()));
     }
 
     @Order(2)
     @Tag("success-case")
     @DisplayName("should return the information of all the reservations using parameters")
     @ParameterizedTest
-    @ValueSource(strings = {"AEP", "MIA"})
+    @ValueSource(strings = { "AEP", "MIA" })
     void save_should_return_the_information_using_parameters(String origin) {
 
         // Given
@@ -103,13 +99,10 @@ class ReservationRepositoryTest {
         Reservation reservation = repository.save(getReservation(null, origin, "MIA"));
 
         // Then
-        assertAll(
-                () -> assertNotNull(reservation),
+        assertAll(() -> assertNotNull(reservation),
                 () -> assertEquals(origin, reservation.getItinerary().getSegment().get(0).getOrigin()),
-                () -> assertEquals("MIA", reservation.getItinerary().getSegment().get(0).getDestination())
-        );
+                () -> assertEquals("MIA", reservation.getItinerary().getSegment().get(0).getDestination()));
     }
-
 
     @Order(1)
     @Tag("success-case")
@@ -125,16 +118,12 @@ class ReservationRepositoryTest {
         List<Reservation> result = repository.getReservations();
 
         // Then
-        assertAll(
-                () -> assertNotNull(result),
-                () -> assertThat(result, hasSize(2)),
+        assertAll(() -> assertNotNull(result), () -> assertThat(result, hasSize(2)),
                 () -> assertThat(getReservation(2L, "AEP", "MIA"), in(result)),
                 () -> assertThat(result.get(0), hasProperty("id")),
-                () -> assertThat(result.get(0).getPassengers().get(0).getFirstName(), stringContainsInOrder("A","s")),
-                () -> assertThat(result.get(0).getPassengers().get(0).getFirstName(), matchesRegex("[a-zA-Z]+"))
-        );
+                () -> assertThat(result.get(0).getPassengers().get(0).getFirstName(), stringContainsInOrder("A", "s")),
+                () -> assertThat(result.get(0).getPassengers().get(0).getFirstName(), matchesRegex("[a-zA-Z]+")));
     }
-
 
     @Tag("success-case")
     @DisplayName("should return the information of the reservation")
@@ -148,9 +137,7 @@ class ReservationRepositoryTest {
         Optional<Reservation> result = repository.getReservationById(1L);
 
         // Then
-        assertAll(
-                () -> assertNotNull(result),
-                () -> assertTrue(result.isPresent()),
+        assertAll(() -> assertNotNull(result), () -> assertTrue(result.isPresent()),
                 () -> assertEquals(getReservation(1L, "EZE", "MIA"), result.get()));
     }
 
@@ -168,9 +155,7 @@ class ReservationRepositoryTest {
         Optional<Reservation> result = repository.getReservationById(1L);
 
         // Then
-        assertAll(
-                () -> assertNotNull(result),
-                () -> assertTrue(result.isPresent()),
+        assertAll(() -> assertNotNull(result), () -> assertTrue(result.isPresent()),
                 () -> assertEquals(getReservation(1L, "EZE", "MIA"), result.get()));
     }
 

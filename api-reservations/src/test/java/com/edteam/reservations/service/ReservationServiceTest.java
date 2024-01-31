@@ -30,11 +30,9 @@ class ReservationServiceTest {
         });
 
         // Then
-        assertAll(
-                () -> assertNotNull(exception),
+        assertAll(() -> assertNotNull(exception),
                 () -> assertEquals(APIError.RESERVATION_NOT_FOUND.getMessage(), exception.getDescription()),
-                () -> assertEquals(APIError.RESERVATION_NOT_FOUND.getHttpStatus(), exception.getStatus())
-        );
+                () -> assertEquals(APIError.RESERVATION_NOT_FOUND.getHttpStatus(), exception.getStatus()));
     }
 
     @Disabled
@@ -51,9 +49,7 @@ class ReservationServiceTest {
         ReservationDTO result = service.getReservationById(1L);
 
         // Then
-        assertAll(
-                () -> assertNotNull(result),
-                () -> assertEquals(getReservation(1L, "EZE", "MIA"), result));
+        assertAll(() -> assertNotNull(result), () -> assertEquals(getReservation(1L, "EZE", "MIA"), result));
     }
 
     private ReservationDTO getReservation(Long id, String origin, String destination) {
