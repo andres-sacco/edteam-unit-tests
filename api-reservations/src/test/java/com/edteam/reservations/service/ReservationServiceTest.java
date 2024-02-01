@@ -60,7 +60,6 @@ class ReservationServiceTest {
         // Then
         verify(repository, Mockito.atMostOnce()).getReservationById(6L);
         verify(conversionService, Mockito.never());
-        //verify(catalogConnector, Mockito.never()).getCity(any());
 
         assertAll(() -> assertNotNull(exception),
                 () -> assertEquals(APIError.RESERVATION_NOT_FOUND.getMessage(), exception.getDescription()),
