@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class PassengerDTO {
 
@@ -57,5 +58,29 @@ public class PassengerDTO {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PassengerDTO that = (PassengerDTO) o;
+        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(documentNumber, that.documentNumber) && Objects.equals(documentType, that.documentType) && Objects.equals(birthday, that.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, documentNumber, documentType, birthday);
+    }
+
+    @Override
+    public String toString() {
+        return "PassengerDTO{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", documentNumber='" + documentNumber + '\'' +
+                ", documentType='" + documentType + '\'' +
+                ", birthday=" + birthday +
+                '}';
     }
 }
