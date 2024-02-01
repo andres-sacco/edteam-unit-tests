@@ -8,6 +8,7 @@ import com.edteam.reservations.model.Reservation;
 import com.edteam.reservations.repository.ReservationRepository;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +19,7 @@ import java.util.Optional;
 import static com.edteam.reservations.util.ReservationUtil.getReservation;
 import static com.edteam.reservations.util.ReservationUtil.getReservationDTO;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @Tags(@Tag("service"))
 @DisplayName("Check the functionality of the service")
@@ -57,6 +58,10 @@ class ReservationServiceTest {
         });
 
         // Then
+        verify(repository, Mockito.atMostOnce()).getReservationById(6L);
+        verify(conversionService, Mockito.never());
+        //verify(catalogConnector, Mockito.never()).getCity(any());
+
         assertAll(() -> assertNotNull(exception),
                 () -> assertEquals(APIError.RESERVATION_NOT_FOUND.getMessage(), exception.getDescription()),
                 () -> assertEquals(APIError.RESERVATION_NOT_FOUND.getHttpStatus(), exception.getStatus()));
@@ -76,11 +81,14 @@ class ReservationServiceTest {
         ReservationDTO reservationDTO = getReservationDTO(1L, "BUE", "MAD");
         when(conversionService.convert(reservationModel, ReservationDTO.class)).thenReturn(reservationDTO);
 
-
         // When
         ReservationDTO result = service.getReservationById(1L);
 
         // Then
+        verify(repository, Mockito.atMostOnce()).getReservationById(1L);
+        verify(conversionService, Mockito.atMostOnce()).convert(reservationModel, ReservationDTO.class);
+        verify(catalogConnector, Mockito.never()).getCity(any());
+
         assertAll(
                 () -> assertNotNull(result),
                 () -> assertEquals(getReservationDTO(1L, "BUE", "MAD"), result));
