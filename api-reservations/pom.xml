@@ -22,6 +22,10 @@
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <mockito.version>5.4.0</mockito.version>
 
+        <pitest-maven.version>1.15.6</pitest-maven.version>
+        <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
+        <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
+
         <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
         <formatter-maven-plugin.version>2.23.0</formatter-maven-plugin.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
@@ -183,21 +187,74 @@
                 <version>${jacoco.version}</version>
                 <executions>
                     <execution>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <phase>test-compile</phase>
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <phase>test</phase>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-failsafe-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
 
-
+    <profiles>
+        <profile>
+            <id>pitest</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-maven</artifactId>
+                        <version>${pitest-maven.version}</version>
+                        <configuration>
+                            <threads>4</threads>
+                            <timestampedReports>false</timestampedReports>
+                            <outputFormats>
+                                <outputFormat>HTML</outputFormat>
+                                <outputFormat>XML</outputFormat>
+                            </outputFormats>
+                            <targetClasses>
+                                <param>com.edteam.reservations.repository.*</param>
+                                <param>com.edteam.reservations.service.*</param>
+                            </targetClasses>
+                            <targetTests>
+                                <param>com.edteam.reservations.repository.ReservationRepositoryTest</param>
+                                <param>com.edteam.reservations.service.*</param>
+                            </targetTests>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                            <groupId>org.pitest</groupId>
+                            <artifactId>pitest-junit5-plugin</artifactId>
+                            <version>${pitest-junit5-plugin.version}</version>
+                        </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>pitest</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>mutationCoverage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
