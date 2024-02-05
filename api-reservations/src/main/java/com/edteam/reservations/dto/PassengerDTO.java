@@ -62,10 +62,14 @@ public class PassengerDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         PassengerDTO that = (PassengerDTO) o;
-        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(documentNumber, that.documentNumber) && Objects.equals(documentType, that.documentType) && Objects.equals(birthday, that.birthday);
+        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName)
+                && Objects.equals(documentNumber, that.documentNumber)
+                && Objects.equals(documentType, that.documentType) && Objects.equals(birthday, that.birthday);
     }
 
     @Override
@@ -75,12 +79,8 @@ public class PassengerDTO {
 
     @Override
     public String toString() {
-        return "PassengerDTO{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", documentNumber='" + documentNumber + '\'' +
-                ", documentType='" + documentType + '\'' +
-                ", birthday=" + birthday +
-                '}';
+        return "PassengerDTO{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
+                + ", documentNumber='" + documentNumber + '\'' + ", documentType='" + documentType + '\''
+                + ", birthday=" + birthday + '}';
     }
 }

@@ -64,10 +64,14 @@ public class SegmentDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         SegmentDTO that = (SegmentDTO) o;
-        return Objects.equals(origin, that.origin) && Objects.equals(destination, that.destination) && Objects.equals(departure, that.departure) && Objects.equals(arrival, that.arrival) && Objects.equals(carrier, that.carrier);
+        return Objects.equals(origin, that.origin) && Objects.equals(destination, that.destination)
+                && Objects.equals(departure, that.departure) && Objects.equals(arrival, that.arrival)
+                && Objects.equals(carrier, that.carrier);
     }
 
     @Override
@@ -77,12 +81,7 @@ public class SegmentDTO {
 
     @Override
     public String toString() {
-        return "SegmentDTO{" +
-                "origin='" + origin + '\'' +
-                ", destination='" + destination + '\'' +
-                ", departure='" + departure + '\'' +
-                ", arrival='" + arrival + '\'' +
-                ", carrier='" + carrier + '\'' +
-                '}';
+        return "SegmentDTO{" + "origin='" + origin + '\'' + ", destination='" + destination + '\'' + ", departure='"
+                + departure + '\'' + ", arrival='" + arrival + '\'' + ", carrier='" + carrier + '\'' + '}';
     }
 }

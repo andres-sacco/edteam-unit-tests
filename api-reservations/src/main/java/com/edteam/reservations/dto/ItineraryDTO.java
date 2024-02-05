@@ -30,8 +30,10 @@ public class ItineraryDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         ItineraryDTO that = (ItineraryDTO) o;
         return Objects.equals(segment, that.segment) && Objects.equals(price, that.price);
     }
@@ -43,9 +45,6 @@ public class ItineraryDTO {
 
     @Override
     public String toString() {
-        return "ItineraryDTO{" +
-                "segment=" + segment +
-                ", price=" + price +
-                '}';
+        return "ItineraryDTO{" + "segment=" + segment + ", price=" + price + '}';
     }
 }
