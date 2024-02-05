@@ -43,10 +43,13 @@ public class ReservationDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         ReservationDTO that = (ReservationDTO) o;
-        return Objects.equals(id, that.id) && Objects.equals(passengers, that.passengers) && Objects.equals(itinerary, that.itinerary);
+        return Objects.equals(id, that.id) && Objects.equals(passengers, that.passengers)
+                && Objects.equals(itinerary, that.itinerary);
     }
 
     @Override
@@ -56,10 +59,6 @@ public class ReservationDTO {
 
     @Override
     public String toString() {
-        return "ReservationDTO{" +
-                "id=" + id +
-                ", passengers=" + passengers +
-                ", itinerary=" + itinerary +
-                '}';
+        return "ReservationDTO{" + "id=" + id + ", passengers=" + passengers + ", itinerary=" + itinerary + '}';
     }
 }

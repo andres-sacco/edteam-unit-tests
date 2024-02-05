@@ -37,10 +37,13 @@ public class PriceDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         PriceDTO priceDTO = (PriceDTO) o;
-        return Objects.equals(totalPrice, priceDTO.totalPrice) && Objects.equals(totalTax, priceDTO.totalTax) && Objects.equals(basePrice, priceDTO.basePrice);
+        return Objects.equals(totalPrice, priceDTO.totalPrice) && Objects.equals(totalTax, priceDTO.totalTax)
+                && Objects.equals(basePrice, priceDTO.basePrice);
     }
 
     @Override
@@ -50,10 +53,6 @@ public class PriceDTO {
 
     @Override
     public String toString() {
-        return "PriceDTO{" +
-                "totalPrice=" + totalPrice +
-                ", totalTax=" + totalTax +
-                ", basePrice=" + basePrice +
-                '}';
+        return "PriceDTO{" + "totalPrice=" + totalPrice + ", totalTax=" + totalTax + ", basePrice=" + basePrice + '}';
     }
 }
