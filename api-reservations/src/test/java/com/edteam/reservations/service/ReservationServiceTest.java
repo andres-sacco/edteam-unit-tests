@@ -42,7 +42,6 @@ class ReservationServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-
     @Tag("error-case")
     @DisplayName("should not return the information of the reservation")
     @Test
@@ -59,7 +58,6 @@ class ReservationServiceTest {
 
         // Then
         verify(repository, Mockito.atMostOnce()).getReservationById(6L);
-        verify(conversionService, Mockito.never());
 
         assertAll(() -> assertNotNull(exception),
                 () -> assertEquals(APIError.RESERVATION_NOT_FOUND.getMessage(), exception.getDescription()),
@@ -88,8 +86,6 @@ class ReservationServiceTest {
         verify(conversionService, Mockito.atMostOnce()).convert(reservationModel, ReservationDTO.class);
         verify(catalogConnector, Mockito.never()).getCity(any());
 
-        assertAll(
-                () -> assertNotNull(result),
-                () -> assertEquals(getReservationDTO(1L, "BUE", "MAD"), result));
+        assertAll(() -> assertNotNull(result), () -> assertEquals(getReservationDTO(1L, "BUE", "MAD"), result));
     }
 }
