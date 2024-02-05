@@ -88,4 +88,31 @@ class ReservationServiceTest {
 
         assertAll(() -> assertNotNull(result), () -> assertEquals(getReservationDTO(1L, "BUE", "MAD"), result));
     }
+
+    @Tag("success-case")
+    @DisplayName("should return remove a reservation")
+    @Test
+    void delete_should_remove_a_reservation() {
+
+        // Given
+        ReservationService service = new ReservationService(repository, conversionService, catalogConnector);
+
+        Reservation reservationModel = getReservation(1L, "BUE", "MAD");
+        when(repository.getReservationById(1L)).thenReturn(Optional.of(reservationModel));
+
+        ReservationDTO reservationDTO = getReservationDTO(1L, "BUE", "MAD");
+        when(conversionService.convert(reservationModel, ReservationDTO.class)).thenReturn(reservationDTO);
+
+        doNothing().when(repository).delete(1L);
+
+        // When
+        service.delete(1L);
+
+        // Then
+        verify(repository, Mockito.atMostOnce()).delete(1L);
+
+        verify(repository, Mockito.atMostOnce()).getReservationById(1L);
+        verify(conversionService, Mockito.atMostOnce()).convert(reservationModel, ReservationDTO.class);
+        verify(catalogConnector, Mockito.never()).getCity(any());
+    }
 }
