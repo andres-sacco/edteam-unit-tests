@@ -168,7 +168,7 @@ class ReservationRepositoryTest {
         ReservationRepository repository = new ReservationRepository();
 
         // When
-        Optional<Reservation> result = repository.getReservationById(6L);
+        Optional<Reservation> result = repository.getReservationById(95L);
 
         // Then
         assertAll(() -> assertNotNull(result), () -> assertTrue(result.isEmpty()));
