@@ -1,9 +1,7 @@
-package com.edteam.reservations.controller;
+package com.edteam.reservations.integration;
 
-import com.edteam.reservations.controller.resource.ReservationResource;
+import com.edteam.reservations.integration.resource.ReservationResource;
 import com.edteam.reservations.dto.ReservationDTO;
-import com.edteam.reservations.enums.APIError;
-import com.edteam.reservations.exception.EdteamException;
 import com.edteam.reservations.service.ReservationService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;

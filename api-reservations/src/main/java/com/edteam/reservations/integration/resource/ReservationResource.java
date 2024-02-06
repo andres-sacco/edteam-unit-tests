@@ -1,4 +1,4 @@
-package com.edteam.reservations.controller.resource;
+package com.edteam.reservations.integration.resource;
 
 import com.edteam.reservations.dto.ErrorDTO;
 import com.edteam.reservations.dto.ReservationDTO;

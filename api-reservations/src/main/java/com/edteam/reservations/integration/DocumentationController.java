@@ -1,4 +1,4 @@
-package com.edteam.reservations.controller;
+package com.edteam.reservations.integration;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletResponse;
